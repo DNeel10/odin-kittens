@@ -1,5 +1,9 @@
 <h2>Kittens Index</h2>
 
-<% @kittens.each do |kitten| %>
-  <%= kitten.name %>
-<% end %>
+<div>
+  <% @kittens.each do |kitten| %>
+    <%= kitten.name %>
+  <% end %>
+</div><br>
+
+<%= link_to "Create New Kitten", new_kitten_path %>

@@ -1,10 +1,18 @@
 class KittensController < ApplicationController
   def index
     @kittens = Kitten.all
+
+    respond_to do |format|
+      format.json { render :json => @kittens }
+    end
   end
 
   def show
     @kitten = Kitten.find(params[:id])
+
+    respond_to do |format|
+      format.json { render :json => @kitten }
+    end
   end
 
   def new
@@ -15,6 +23,7 @@ class KittensController < ApplicationController
     @kitten = Kitten.create(kitten_params)
 
     if @kitten.save
+      flash[:notice] = "Congratulations on your new kitten!"
       redirect_to @kitten
     else
       render :new, status: :unprocessable_entity
@@ -29,6 +38,7 @@ class KittensController < ApplicationController
     @kitten = Kitten.find(params[:id])
 
     if @kitten.update(kitten_params)
+      flash[:notice] = "What was wrong with the way that kitten was?"
       redirect_to @kitten
     else
       render :edit, status: :unprocessable_entity
